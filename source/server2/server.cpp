@@ -1,9 +1,15 @@
+#ifdef _WIN32
+#  include <winsock2.h> // must be included before rpc/rpc.h to avoid macro redefinition in rpc/types.h
+#endif
 #include "server.hpp"
 
 #include <string>
-#include <unistd.h>
+#if defined(__GNUC__)
+#  include <unistd.h>
+#endif
 #include <fmt/format.h>
 
+#include "clientserver/stringUtils.h"
 #include "clientserver/initStructs.h"
 #include "server_environment.hpp"
 #include "logging/logging.h"
@@ -33,7 +39,11 @@ void close_sockets(std::vector<Sockets>& sockets)
 {
     for (auto& socket : sockets) {
         if (socket.type == TYPE_UDA_SERVER) {
+#ifndef _WIN32
             close(socket.fh);
+#else
+            closesocket(socket.fh);
+#endif
         }
     }
     sockets.clear();

@@ -1,3 +1,6 @@
+#ifdef _WIN32
+#  include <winsock2.h> // must be included before rpc/rpc.h to avoid macro redefinition in rpc/types.h
+#endif
 #include "client_xdr_stream.hpp"
 
 #include <cstdio>
@@ -40,7 +43,7 @@ std::pair<XDR*, XDR*> uda::client::createXDRStream(IoData* io_data)
        xdrrec_create(&client_input, DB_READ_BLOCK_SIZE, DB_WRITE_BLOCK_SIZE, (char*)io_data,
                      reinterpret_cast<int (*)(char *, char *, int)>(uda::client::readin),
                      reinterpret_cast<int (*)(char *, char *, int)>(uda::client::writeout));
-#endif    
+#endif
     } else {
 #if defined (__APPLE__) || defined(__TIRPC__)
        xdrrec_create(&client_output, DB_READ_BLOCK_SIZE, DB_WRITE_BLOCK_SIZE, io_data,

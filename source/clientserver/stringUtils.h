@@ -10,6 +10,8 @@
 
 #ifndef _WIN32
 #  include <strings.h>
+#else
+#   define strncasecmp _strnicmp
 #endif
 
 #ifdef __cplusplus

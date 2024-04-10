@@ -1,4 +1,7 @@
 #include <cstdio>
+#ifdef _WIN32
+#  include <winsock2.h> // must be included before rpc/rpc.h to avoid macro redefinition in rpc/types.h
+#endif
 #include <rpc/rpc.h>
 #include <cassert>
 #include <cerrno>

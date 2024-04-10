@@ -10,6 +10,7 @@
 #  include <cxxabi.h>
 #else
 #  include <Windows.h>
+#  include <DbgHelp.h>
 #endif
 
 #if defined(_WIN32)
@@ -38,7 +39,7 @@ public:
 #else
         char demangled[1024];
         UnDecorateSymbolName(tname, demangled, sizeof(demangled), UNDNAME_COMPLETE);
-        std::string demangled_name(demangle);
+        std::string demangled_name(demangled);
 #endif
 
         std::vector<T*> vec;

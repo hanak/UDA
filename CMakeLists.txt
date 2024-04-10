@@ -111,19 +111,21 @@ endif()
 if( NOT WIN32 )
   set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -pthread -Wno-implicit-function-declaration" )
   set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -pthread" )
-  
+
   if( MINGW )
     add_definitions( -DMINGW )
   endif()
-  
+
   if( GOPTION )
     message( "Compiling with g option to generate and embed debug information" )
     set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g" )
     set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g" )
-  endif() 
+  endif()
 endif()
 
 if( WIN32 AND NOT MINGW )
+  set( CMAKE_CXX_STANDARD 20 )
+  add_definitions(-D_SILENCE_CXX17_C_HEADER_DEPRECATION_WARNING -DNOMINMAX)
   set( CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /SAFESEH:NO" )
   set( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SAFESEH:NO /SUBSYSTEM:CONSOLE" )
 endif()
@@ -143,7 +145,7 @@ if( WIN32 OR MINGW )
     set( IMPLIB_SUFFIX ".dll.lib" )
   endif()
   find_package( XDR REQUIRED )
-  
+
   # "-Wl,-z,defs" is an ELF instruction, not supported by Windows
   string( REGEX REPLACE "-Wl,-z,defs" "" CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}" )
 endif()
@@ -185,7 +187,7 @@ endif()
 if( SSLAUTHENTICATION )
   message( "Including SSL/RTL X509 User Authentication" )
   add_definitions( -DSSLAUTHENTICATION )
-endif() 
+endif()
 
 if( BUILD_SHARED_LIBS )
   message( "Build shared libraries asked" )
@@ -257,7 +259,7 @@ if( WIN32 OR MINGW )
     # otherwise it is not able to find files
     set( CPACK_NSIS_FULL_INSTALL "File /r \\\"\\\${INST_DIR_WIN}\\\\*.*\\\"" )
   endif()
-  
+
   set( CPACK_TEMPORARY_INSTALL_DIRECTORY "${CMAKE_BINARY_DIR}/cpack" )
   set( CPACK_PACKAGE_DIRECTORY "${CMAKE_WIN_BINARY_DIR}" )
   set( CPACK_TEMPORARY_DIRECTORY "${CMAKE_BINARY_DIR}/cpack" )

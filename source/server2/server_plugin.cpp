@@ -1,6 +1,9 @@
 /*---------------------------------------------------------------
 * Identify the correct UDA Data Server Plugin
 *---------------------------------------------------------------------------------------------------------------------*/
+#ifdef _WIN32
+#  include <winsock2.h> // must be included before rpc/rpc.h to avoid macro redefinition in rpc/types.h
+#endif
 #include "server_plugin.h"
 #include "plugins.hpp"
 #include "server.hpp"
@@ -12,7 +15,6 @@
 #if defined(__GNUC__)
 #  include <unistd.h>
 #else
-#  include <winsock2.h>
 #  include <io.h>
 #  define dup _dup
 #  define dup2 _dup2

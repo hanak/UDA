@@ -22,6 +22,7 @@
 /.idea
 /.DS_Store
 /python
+extlib/build
 extlib/portablexdr-4.9.1/Makefile.in
 extlib/portablexdr-4.9.1/Makefile
 extlib/portablexdr-4.9.1/aclocal.m4

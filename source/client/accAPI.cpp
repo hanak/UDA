@@ -1,3 +1,6 @@
+#ifdef _WIN32
+#  include <winsock2.h> // must be included before rpc/rpc.h to avoid macro redefinition in rpc/types.h
+#endif
 #include "accAPI.h"
 
 #include <cmath>
@@ -95,7 +98,7 @@ int getThreadId(thread_t id)
     return -1;
 }
 
-// Lock the thread and set the previous STATE  
+// Lock the thread and set the previous STATE
 void lockIdamThread(CLIENT_FLAGS* client_flags)
 {
     static unsigned int mutex_initialised = 0;

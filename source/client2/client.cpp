@@ -1,3 +1,6 @@
+#ifdef _WIN32
+#  include <winsock2.h> // must be included before rpc/rpc.h to avoid macro redefinition in rpc/types.h
+#endif
 #include "client.hpp"
 
 #include "client_environment.hpp"
@@ -7,6 +10,7 @@
 #include "accAPI.h"
 #include "exceptions.hpp"
 
+#include <clientserver/stringUtils.h>
 #include <clientserver/udaDefines.h>
 #include <logging/logging.h>
 #include <clientserver/errorLog.h>

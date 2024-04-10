@@ -1649,6 +1649,10 @@ double abs(double in) {
     return fabs(in);
 }
 
+template<typename T>
+double absd(T in) {
+    return static_cast<double>(abs(in));
+}
 }
 
 template <typename T>
@@ -1674,9 +1678,9 @@ int get_subset_indices_for_type(const std::string& operation, DIMS* dim, double 
             if (count == 0) {
                 int index = -1;
                 double delta;
-                double minvalue = uda::abs((T)value - p[0]);
+                double minvalue = uda::absd((T)value - p[0]);
                 for (int k = 0; k < dim->dim_n; k++) {
-                    delta = uda::abs((T)value - p[k]);
+                    delta = uda::absd((T)value - p[k]);
                     if (delta < minvalue) {                        // Look for the Single Nearest Value
                         minvalue = delta;
                         index = k;
@@ -1690,9 +1694,9 @@ int get_subset_indices_for_type(const std::string& operation, DIMS* dim, double 
                         index == dim->dim_n - 1) {                // Check not an end point by default
                         if (dim->dim_n > 1) {
                             if (index == 0) {
-                                delta = uda::abs(p[1] - p[0]);
+                                delta = uda::absd(p[1] - p[0]);
                             } else {
-                                delta = uda::abs(p[dim->dim_n - 1] - p[dim->dim_n - 2]);
+                                delta = uda::absd(p[dim->dim_n - 1] - p[dim->dim_n - 2]);
                             }
                             if (uda::abs((T)value - p[index]) > delta) count = 0;    // Suspect match!
                         }
@@ -1734,9 +1738,9 @@ int get_subset_indices_for_type(const std::string& operation, DIMS* dim, double 
                 }
             } else {
                 int index = -1;
-                double delta, minvalue = uda::abs((T)value - p[0]);
+                double delta, minvalue = uda::absd((T)value - p[0]);
                 for (int k = 0; k < dim->dim_n; k++) {
-                    delta = uda::abs((T)value - p[k]);
+                    delta = uda::absd((T)value - p[k]);
                     if (delta <
                         minvalue) {                        // Look for the Single Nearest Value
                         minvalue = delta;
@@ -1753,9 +1757,9 @@ int get_subset_indices_for_type(const std::string& operation, DIMS* dim, double 
                         // Check not an end point by default
                         if (dim->dim_n > 1) {
                             if (index == 0) {
-                                delta = uda::abs(p[1] - p[0]);
+                                delta = uda::absd(p[1] - p[0]);
                             } else {
-                                delta = uda::abs(p[dim->dim_n - 1] - p[dim->dim_n - 2]);
+                                delta = uda::absd(p[dim->dim_n - 1] - p[dim->dim_n - 2]);
                             }
                             if (uda::abs((T)value - p[index]) > delta) {
                                 count = 0;

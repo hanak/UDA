@@ -1,3 +1,6 @@
+#ifdef _WIN32
+#  include <winsock2.h> // must be included before rpc/rpc.h to avoid macro redefinition in rpc/types.h
+#endif
 #include "xdr_protocol.hpp"
 #include "clientserver/printStructs.h"
 #include "clientserver/xdrlib.h"
@@ -11,7 +14,9 @@
 #endif
 
 #include <cerrno>
-#include <unistd.h>
+#if defined(__GNUC__)
+#  include <unistd.h>
+#endif
 
 #include <logging/logging.h>
 #include <clientserver/udaDefines.h>

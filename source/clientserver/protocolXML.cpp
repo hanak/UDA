@@ -61,6 +61,9 @@
 #include <logging/logging.h>
 #include <structures/struct.h>
 #include <fmt/format.h>
+#ifdef _WIN32
+#   include <clientserver/mkstemp.h>
+#endif
 
 #include "readXDRFile.h"
 #include "errorLog.h"

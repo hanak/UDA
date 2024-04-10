@@ -1,3 +1,6 @@
+#ifdef _WIN32
+#  include <winsock2.h> // must be included before rpc/rpc.h to avoid macro redefinition in rpc/types.h
+#endif
 #include "clientXDRStream.h"
 
 #include <cstdio>
@@ -24,7 +27,7 @@ std::pair<XDR*, XDR*> clientCreateXDRStream()
 
 #if defined(SSLAUTHENTICATION) && !defined(FATCLIENT)
     if (getUdaClientSSLDisabled()) {
-    
+
 #if defined (__APPLE__) || defined(__TIRPC__)
        xdrrec_create(&client_output, DB_READ_BLOCK_SIZE, DB_WRITE_BLOCK_SIZE, nullptr,
                      reinterpret_cast<int (*)(void *, void *, int)>(clientReadin),
@@ -41,7 +44,7 @@ std::pair<XDR*, XDR*> clientCreateXDRStream()
        xdrrec_create(&client_input, DB_READ_BLOCK_SIZE, DB_WRITE_BLOCK_SIZE, nullptr,
                      reinterpret_cast<int (*)(char *, char *, int)>(clientReadin),
                      reinterpret_cast<int (*)(char *, char *, int)>(clientWriteout));
-#endif    
+#endif
     } else {
 #if defined (__APPLE__) || defined(__TIRPC__)
        xdrrec_create(&client_output, DB_READ_BLOCK_SIZE, DB_WRITE_BLOCK_SIZE, nullptr,
