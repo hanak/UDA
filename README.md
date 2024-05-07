@@ -48,7 +48,7 @@ UDA requires the following to avail in order to build:
 
 #### Windows
 
-> Note: If you want to use Visual Studio 2019 to compile UDA, please refer to sections [Visual Studio](#visual-studio) and [vcpkg](#vcpkg) below. UDA uses external libraries which are not available through vcpkg. Yet, those libraries are available in the source code in `extlibs`. In order to build UDA on Windows:
+> Note: If you want to use Visual Studio 2022 to compile UDA, please refer to sections [Visual Studio](#visual-studio) and [vcpkg](#vcpkg) below. UDA uses external libraries which are not available through vcpkg. Yet, those libraries are available in the source code in `extlibs`. In order to build UDA on Windows:
 1) Build extlibs first.
 2) Build UDA.
 
@@ -70,10 +70,10 @@ Building extlibs (running in MinGW64 Shell):
     cd ..
     ./install.sh
 
-Building extlibs (running in VS2019 x64 Native Tools):
+Building extlibs (running in VS2022 x64 Native Tools):
 
     cd extlib
-    cmake -S . -B build -G "Visual Studio 16 2019"
+    cmake -S . -B build -G "Visual Studio 17 2022"
     cmake --build build --config Release
     install.bat
 
@@ -93,9 +93,9 @@ Tested and built on Windows 10 (built using MinGW 64-bit, running in MinGW64 She
     make
     make install
 
-Tested and built on Windows 10 (built using VS2019 x64 Native Tools):
+Tested and built on Windows 10 (built using VS2022 x64 Native Tools):
 
-    cmake.exe -S . -B build -G "Visual Studio 16 2019" -DCMAKE_TOOLCHAIN_FILE="C:\vcpkg\scripts\buildsystems\vcpkg.cmake" -DNO_MODULES=ON -DTARGET_TYPE=OTHER -DBUILD_SHARED_LIBS=ON -DVCPKG_TARGET_TRIPLET=x64-windows -DXDR_ROOT=extlib
+    cmake.exe -S . -B build -G "Visual Studio 17 2022" -DCMAKE_TOOLCHAIN_FILE="<vcpkg_dir>\scripts\buildsystems\vcpkg.cmake" -DNO_MODULES=ON -DTARGET_TYPE=OTHER -DBUILD_SHARED_LIBS=ON -DVCPKG_TARGET_TRIPLET=x64-windows -DXDR_ROOT=extlib
     cmake.exe --build build --config Release
 
 Running Python client:
@@ -156,6 +156,10 @@ To build UDA in fat-client mode use:
 
     make -C <build_dir> install
 
+On Windows system (VS2022) this requires administrative permissions:
+
+    cmake --build <build_dir> --config Release --target install
+
 ### Packaging
 
 On Linux system:
@@ -166,13 +170,10 @@ On Windows system (MinGW):
 
     make -C <build_dir> package
 
-On Windows system (VS2019):
-
-    msbuild.exe INSTALL.vcxproj /p:configuration=release /p:platform=x64
 
 ## Visual Studio
 
-UDA can be compiled with Visual Studio 2019/2022.
+UDA can be compiled with Visual Studio 2022.
 To do that, Visual Studio need to be installed with the following packages at least:
 
 - C++ Desktop development tools
