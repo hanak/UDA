@@ -20,14 +20,14 @@ extern "C" {
    int g_Server_Port  = 50000;            // port number (*** passed as a parameter)
 
    int g_TotalNum     = 1000000;        // Test data
-   
+
 LIBRARY_API int tcp_connect(SYSSOCKET *ssock, int port);
 LIBRARY_API int c_connect(UDTSOCKET *usock, int port);
 LIBRARY_API int createUDTSocket(int *usock, int port, int rendezvous);
 LIBRARY_API int createTCPSocket(SYSSOCKET *ssock, int port, bool rendezvous);
 #endif
 
-int testplugin(IDAM_PLUGIN_INTERFACE *idam_plugin_interface);
+LIBRARY_API int testplugin(IDAM_PLUGIN_INTERFACE *idam_plugin_interface);
 
 #ifdef __cplusplus
 }
