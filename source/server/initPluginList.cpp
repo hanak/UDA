@@ -1,6 +1,7 @@
 #include "initPluginList.h"
 
 #include <cerrno>
+#include <sstream>
 
 #include <cache/memcache.hpp>
 #include <clientserver/stringUtils.h>
@@ -102,7 +103,9 @@ void initPluginList(PLUGINLIST* plugin_list, ENVIRONMENT* environment)
 
         errno = 0;
         if ((conf = fopen(work.c_str(), "r")) == nullptr || errno != 0) {
-            UDA_ADD_SYS_ERROR(strerror(errno));
+            std::stringstream msg;
+            msg << "Failed to open the server plugin config file \"" << work << "\"";
+            UDA_ADD_SYS_ERROR(msg.str().c_str());
             UDA_ADD_ERROR(999, "No Server Plugin Configuration File found!");
             if (conf != nullptr) {
                 fclose(conf);
