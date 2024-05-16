@@ -13,15 +13,15 @@
 extern "C" {
 #endif
 
-int connectionOpen();
-int reconnect(ENVIRONMENT* environment, XDR** client_input, XDR** client_output, time_t* tv_server_start,
+LIBRARY_API int connectionOpen();
+LIBRARY_API int reconnect(ENVIRONMENT* environment, XDR** client_input, XDR** client_output, time_t* tv_server_start,
                           int* user_timeout);
-int createConnection(XDR* client_input, XDR* client_output, time_t *tv_server_start, int user_timeout);
-void closeAllConnections();
-void closeConnection(ClosedownType type);
+LIBRARY_API int createConnection(XDR* client_input, XDR* client_output, time_t *tv_server_start, int user_timeout);
+LIBRARY_API void closeAllConnections();
+LIBRARY_API void closeConnection(ClosedownType type);
 
-int clientWriteout(void* iohandle, char* buf, int count);
-int clientReadin(void* iohandle, char* buf, int count);
+LIBRARY_API int clientWriteout(void* iohandle, char* buf, int count);
+LIBRARY_API int clientReadin(void* iohandle, char* buf, int count);
 
 #ifdef __cplusplus
 }
