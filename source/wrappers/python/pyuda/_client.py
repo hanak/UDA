@@ -55,7 +55,8 @@ class Client(with_metaclass(ClientMeta, object)):
 
     def __init__(self, debug_level=logging.ERROR):
         self.version = __version__
-        assert self.version == cpyuda.get_build_version().decode(), "mismatching pyuda and c-library versions"
+        cpyuda_version = cpyuda.get_build_version().decode()
+        assert self.version == cpyuda_version, "mismatching pyuda {} and c-library {} versions".format(self.version, cpyuda_version)
 
         logging.basicConfig(level=debug_level)
         self.logger = logging.getLogger(__name__)
@@ -71,14 +72,14 @@ class Client(with_metaclass(ClientMeta, object)):
             self._registered_subclients['get_shot_date_time'] = MastClient(self)
             self._registered_subclients['latest_shot'] = MastClient(self)
             self._registered_subclients['latest_source_pass'] = MastClient(self)
-            self._registered_subclients['latest_source_pass_in_range'] = MastClient(self)            
+            self._registered_subclients['latest_source_pass_in_range'] = MastClient(self)
             self._registered_subclients['listGeomSignals'] = GeomClient(self)
             self._registered_subclients['listGeomGroups'] = GeomClient(self)
             self._registered_subclients['list'] = MastClient(self)
             self._registered_subclients['list_archive_files'] = MastClient(self)
             self._registered_subclients['list_archive_file_info'] = MastClient(self)
             self._registered_subclients['list_archive_directories'] = MastClient(self)
-            self._registered_subclients['list_file_signals'] = MastClient(self)            
+            self._registered_subclients['list_file_signals'] = MastClient(self)
             self._registered_subclients['list_signals'] = MastClient(self)
             self._registered_subclients['put'] = MastClient(self)
             self._registered_subclients['list_shots'] = MastClient(self)
